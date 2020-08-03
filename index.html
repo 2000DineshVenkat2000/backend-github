@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		@media (min-width: 768px) {
+    .h-md-100 { height: 100vh; }
+	}
+	#myform {
+    text-align: center;
+    padding: 5px;
+    border: 1px dotted #ccc;
+    margin: 2%;
+	}
+	.qty {
+	width: 40px;
+	height: 25px;
+    text-align: center;
+	}
+	input.qtyplus { width:25px; height:25px;}
+	input.qtyminus { width:25px; height:25px;}
+	</style>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
+	<!-- Bootstrap -->
+	<!-- CSS only -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+	<!-- JS, Popper.js, and jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	<title>Backend CheckOut</title>
+	<b><h2 style="text-align: left;">&nbsp&nbsp&nbsp&nbsp&nbspCheckOut</h2></b> 
+</head>
+<body>
+	<script type="text/javascript">
+		      (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+
+  
+    jQuery(document).ready(function(){
+    // This button will increment the value
+    $('.qtyplus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If is not undefined
+        if (!isNaN(currentVal)) {
+            // Increment
+            $('input[name='+fieldName+']').val(currentVal + 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+    // This button will decrement the value till 0
+    $(".qtyminus").click(function(e) {
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        fieldName = $(this).attr('field');
+        // Get its current value
+        var currentVal = parseInt($('input[name='+fieldName+']').val());
+        // If it isn't undefined or its greater than 0
+        if (!isNaN(currentVal) && currentVal > 0) {
+            // Decrement one
+            $('input[name='+fieldName+']').val(currentVal - 1);
+        } else {
+            // Otherwise put a 0 there
+            $('input[name='+fieldName+']').val(0);
+        }
+    });
+});
+
+	</script>
+	<form class="needs-validation" action="backup.php" method="post" novalidate>
+	<div class="d-md-flex h-md-100 ">
+	<!-- First Half -->
+		<div class="col-md-6 p-0  h-md-100">
+	    	<div class="text-black d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+    		    <div class="contact text-left">
+    		    	<h3>Contact Information</h3>
+    		    	
+						<div class="form-row">
+								<label for="validationCustom01">E-mail</label>
+								<input type="email" class="form-control" id="validationCustom01" placeholder="Enter your mail" name="ee" required>
+      							<br>
+   					   			<label for="validationCustom02">Phone</label>
+      							<input type="Phone" class="form-control" id="validationCustom02" placeholder="Enter your phone" name="ph" required>
+      							<br>
+      							<br>
+      							<br>
+      							<br>
+      					</div>
+      					<b><h3>Shipping Address</h3></b>
+      					<div class="form-row">
+      							<br>
+      							<label for="validationCustom03">Full name</label>
+      							<input type="text" class="form-control" id="validationCustom03" placeholder="Enter your name" name="na" required>
+								<br>      		
+    						    <label for="validationCustom04">Address</label>
+      							<input type="text" class="form-control" id="validationCustom04" placeholder="Enter your address" name="ad" required>
+      							<br>
+      							<label for="validationCustom05">City</label>
+      							<input type="text" class="form-control" id="validationCustom05" placeholder="Enter your city" name="ci" required>
+             					<div class="col-md-2 mb-2">
+      								<label for="validationCustom05">Country</label>
+      								<input type="text" class="form-control" id="validationCustom05" placeholder="Enter your country" name="co" required>
+      							</div>
+    							<div class="col-md-2 mb-2">
+      								<label for="validationCustom05">Zip</label>
+      								<input type="text" class="form-control" id="validationCustom05" placeholder="Zip" name="zi" required>
+      
+    							</div>
+  						</div>
+ 				 	<button class="btn btn-primary btn-sm" type="submit">Submit</button>
+				
+    	    </div>
+    	</div>
+	</div>
+
+	<!-- Second Half -->
+	<div class="col-md-6 p-0 bg-white h-md-100 loginarea">
+	    <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+	        <div class="jumbotron">	
+	        	<table>
+	        		<tr>
+	        			<td>
+	        				<img src="bag.jpg" style="width:100px;height: 100px;">
+	        			</td>
+	        			<td>
+	        				<p>
+	        					<b>Vintage Backpack</b>
+	        				</p>
+	        				<br>
+	        				<p><p style="color: rgb(255,185,0);">$54.99</p>    <del>$94.99</del></p>
+	   						
+	   						<div class="container mt-5" style="width:100px;">
+	   							<input type="number" value="0" min="0" max="100" step="1" name=n1>
+	   						</div>
+	   						<script src="bootstrap-input-spinner.js"></script>
+	   						<script>
+	   							$('input[type=number]').inputSpinner();
+	   						</script>
+	   						
+            			</td>
+	        		</tr>
+	        		<tr>
+	        			<td>
+	        				<img src="hoes.jpg" style="width:100px;height: 100px;">
+	        			</td>
+	        			<td>
+	        				<p>
+	        					<br>
+	        					<b>Vin Shoes</b>
+	        				</p>
+	        				<br>
+	        				<p><p style="color: rgb(255,185,0);">$74.99</p>    <del>$124.99</del></p>
+	   						<div class="container mt-5" style="width:100px;">
+	   							<input type="number" value="0" min="0" max="100" step="1" name=n2 >
+	   						</div>
+	   						<script src="bootstrap-input-spinner.js"></script>
+	   						<script>
+	   							$('input[type=number]').inputSpinner();
+	   						</script>
+	   						<br>
+
+	   					</td>
+	        		</tr>
+	        	</table>
+	        	<br><br><br>
+	        	<hr border=3>
+	        	<p>Shipping	&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp $19</p>
+	        	
+	        </div>
+	    </div>
+	</div>
+    </form>
+    
+</body>
+</html>
